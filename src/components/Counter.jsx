@@ -12,6 +12,7 @@ const Counter = function() {
 
   return (
     <div>
+      <h3>Func Component</h3>
       <h1>{count}</h1>
       <button onClick={increment}>Увеличить</button>
       <button onClick={decrement}>Уменшить</button>
