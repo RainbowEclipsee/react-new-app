@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 // import ClassCounter from './components/ClassCounter'
 // import Counter from './components/Counter'
 // import PostItem from './components/PostItem'
@@ -18,9 +18,21 @@ function App() {
   ])
 
   const [title, setTitle] = useState('Бла-бла-бла')
+  const [body, setBody] = useState('')
 
-  const addNewPost = (a) => {
-    a.preventDefault()
+  const addNewPost = (b) => {
+    b.preventDefault()
+    // Создаем новый пост
+    const newPost = {
+      id: Date.now(),
+      title,
+      body,
+    }
+    // Добавляем созданный объект в уже созданный массив постов setPosts
+    setPosts([...posts, newPost])
+    //Очищаем наши input`s
+    setTitle('')
+    setBody('')
   }
 
   return (
@@ -33,7 +45,12 @@ function App() {
           type="text"
           placeholder="Название поста"
         ></MyInput>
-        <MyInput type="text" placeholder="Описание поста"></MyInput>
+        <MyInput
+          value={body}
+          onChange={(e) => setBody(e.target.value)}
+          type="text"
+          placeholder="Описание поста"
+        ></MyInput>
         <MyButton onClick={addNewPost}>Создать пост</MyButton>
       </form>
       <PostList posts={posts} title={'Список постов про Js'} />
