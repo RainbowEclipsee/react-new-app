@@ -1,10 +1,11 @@
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
+import PostForm from './components/PostForm'
 // import ClassCounter from './components/ClassCounter'
 // import Counter from './components/Counter'
 // import PostItem from './components/PostItem'
 import PostList from './components/PostList'
-import MyButton from './components/UI/button/MyButton'
-import MyInput from './components/UI/input/MyInput'
+// import MyButton from './components/UI/button/MyButton'
+// import MyInput from './components/UI/input/MyInput'
 import './styles/App.css'
 
 function App() {
@@ -17,43 +18,22 @@ function App() {
     { id: 6, title: 'JavaScript 6', body: 'Пост рассказывает о JavaScript' },
   ])
 
-  const [title, setTitle] = useState('Бла-бла-бла')
-  const [body, setBody] = useState('')
-
-  const addNewPost = (b) => {
-    b.preventDefault()
-    // Создаем новый пост
-    const newPost = {
-      id: Date.now(),
-      title,
-      body,
-    }
-    // Добавляем созданный объект в уже созданный массив постов setPosts
+  const createPost = (newPost) => {
     setPosts([...posts, newPost])
-    //Очищаем наши input`s
-    setTitle('')
-    setBody('')
+  }
+  // Получаем post из дочернего компонента
+  const removePost = (post) => {
+    setPosts(posts.filter((p) => p.id !== post.id))
   }
 
   return (
     <div className="App">
-      <form>
-        {/* Управляемый компонент на onChange реализовано двуст.связывание*/}
-        <MyInput
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          type="text"
-          placeholder="Название поста"
-        ></MyInput>
-        <MyInput
-          value={body}
-          onChange={(e) => setBody(e.target.value)}
-          type="text"
-          placeholder="Описание поста"
-        ></MyInput>
-        <MyButton onClick={addNewPost}>Создать пост</MyButton>
-      </form>
-      <PostList posts={posts} title={'Список постов про Js'} />
+      <PostForm create={createPost} />
+      <PostList
+        remove={removePost}
+        posts={posts}
+        title={'Список постов про Js'}
+      />
     </div>
   )
 }
