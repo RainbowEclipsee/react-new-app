@@ -12,6 +12,7 @@ const PostForm = ({ create }) => {
     const newPost = {
       ...post,
       id: Date.now(),
+      car: 'Volga',
     }
     create(newPost)
     //Очищаем наши input`s

@@ -10,18 +10,26 @@ import './styles/App.css'
 
 function App() {
   const [posts, setPosts] = useState([
-    { id: 1, title: 'JavaScript 1', body: 'Пост рассказывает о JavaScript' },
-    { id: 2, title: 'JavaScript 2', body: 'Пост рассказывает о JavaScript' },
-    { id: 3, title: 'JavaScript 3', body: 'Пост рассказывает о JavaScript' },
-    { id: 4, title: 'JavaScript 4', body: 'Пост рассказывает о JavaScript' },
-    { id: 5, title: 'JavaScript 5', body: 'Пост рассказывает о JavaScript' },
-    { id: 6, title: 'JavaScript 6', body: 'Пост рассказывает о JavaScript' },
+    {
+      id: 1,
+      title: 'JavaScript 1',
+      body: 'Пост рассказывает о JavaScript',
+    },
+    {
+      id: 2,
+      title: 'JavaScript 2',
+      body: 'Пост рассказывает о JavaScript',
+    },
+    {
+      id: 3,
+      title: 'JavaScript 3',
+      body: 'Пост рассказывает о JavaScript',
+    },
   ])
-
   const createPost = (newPost) => {
     setPosts([...posts, newPost])
   }
-  // Получаем post из дочернего компонента
+  // Получаем (post) из дочернего компонента
   const removePost = (post) => {
     setPosts(posts.filter((p) => p.id !== post.id))
   }
@@ -29,11 +37,15 @@ function App() {
   return (
     <div className="App">
       <PostForm create={createPost} />
-      <PostList
-        remove={removePost}
-        posts={posts}
-        title={'Список постов про Js'}
-      />
+      {posts.length !== 0 ? (
+        <PostList
+          remove={removePost}
+          posts={posts}
+          title={'Список постов про Js'}
+        />
+      ) : (
+        <h1 style={{ textAlign: 'center' }}>Посты не найдены!</h1>
+      )}
     </div>
   )
 }
